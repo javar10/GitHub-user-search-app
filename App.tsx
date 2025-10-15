@@ -2,7 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
-import { colors, spacing, fonts } from './styles/theme';
+import { colors, fonts } from './styles/theme';
+import Header from './components/Header';
+import SearchBar from './components/SearchBar';
 
 
 export default function App() {
@@ -27,8 +29,10 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Open up App.tsx to start working on your app!</Text>
+      <Header />
       <StatusBar style="auto" />
+
+      <SearchBar />
     </View>
   );
 }
@@ -36,12 +40,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.neutral500,
-    padding: spacing.lg,
-  },
-  heading: {
-    color: colors.neutral900,
-    fontSize: fonts.size.xxs,
-    fontFamily: fonts.bold,
+    backgroundColor: colors.neutral100,
+    alignItems: 'center',
   },
 });

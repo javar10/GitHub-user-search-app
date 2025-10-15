@@ -1,0 +1,55 @@
+import React from 'react';
+import { colors, fonts } from '../styles/theme';
+import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import Logo from '../assets/logos/devfinder.png';
+import Moon from '../assets/icons/moon.png';
+
+const Header = () => {
+    return (
+        <View style={styles.container}>
+            {/* <View style={styles.logoContainer}> */}
+                <Image source={Logo} style={styles.logo} />
+            {/* </View> */}
+            <TouchableOpacity style={styles.modeToggle}>
+                <Text style={styles.headerText}>DARK</Text>
+                <Image source={Moon} style={styles.headerIcon} />
+            </TouchableOpacity>
+
+        </View>
+    );
+};
+
+export default Header;
+
+const styles = StyleSheet.create({
+    container: {
+        width: '91.5%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    // logoContainer: {
+    //     justifyContent: 'flex-start',
+    // },
+    logo: {
+        width: 128,
+        resizeMode: 'contain',
+        tintColor: colors.neutral900,
+        alignSelf: 'flex-start',
+    },
+    modeToggle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+    },
+    headerText: {
+        color: colors.neutral500,
+        fontSize: fonts.size.xs,
+        fontFamily: fonts.bold,
+        letterSpacing: 2,
+    },
+    headerIcon: {
+        width: 20,
+        tintColor: colors.neutral500,
+    },
+});
