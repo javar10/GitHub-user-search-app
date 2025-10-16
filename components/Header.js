@@ -8,7 +8,7 @@ const Header = () => {
     return (
         <View style={styles.container}>
             {/* <View style={styles.logoContainer}> */}
-                <Image source={Logo} style={styles.logo} />
+            <Image source={Logo} style={styles.logo} />
             {/* </View> */}
             <TouchableOpacity style={styles.modeToggle}>
                 <Text style={styles.headerText}>DARK</Text>
@@ -44,9 +44,12 @@ const styles = StyleSheet.create({
     },
     headerText: {
         color: colors.neutral500,
-        fontSize: fonts.size.xs,
+        fontSize: fonts.size.xxs,
         fontFamily: fonts.bold,
-        letterSpacing: 2,
+        fontWeight: '700',
+        lineHeight: 13 * 1.4,
+        letterSpacing: 2.5,
+        textAlign: 'right',
     },
     headerIcon: {
         width: 20,

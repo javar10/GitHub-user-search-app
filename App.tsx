@@ -6,7 +6,6 @@ import { colors, fonts } from './styles/theme';
 import Header from './components/Header';
 import SearchBar from './components/SearchBar';
 
-
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
