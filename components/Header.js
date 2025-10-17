@@ -27,6 +27,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        marginTop: 32,
+        padding: 0,
     },
     // logoContainer: {
     //     justifyContent: 'flex-start',

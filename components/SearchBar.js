@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
         elevation: 16,
         paddingVertical: 8,
         paddingHorizontal: 12,
-
     },
     textInputView: {
         flexDirection: 'row',
