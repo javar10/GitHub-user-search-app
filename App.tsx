@@ -9,6 +9,9 @@ import UserCard from './components/UserCard';
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function loadFonts() {
@@ -23,9 +26,24 @@ export default function App() {
   }, []);
 
   if (!fontsLoaded) {
-    // Render nothing or a custom splash screen while fonts load
     return null;
   }
+
+  const handleSearch = async () => {
+    if (!searchQuery) return;
+    setLoading(true);
+    try {
+      const response = await fetch(`https://api.github.com/users/${searchQuery}`);
+      const data = await response.json();
+      setUserData(data);
+      console.log(data)
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      setUserData(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <ScrollView
@@ -34,8 +52,15 @@ export default function App() {
     >
       <Header />
       <StatusBar style="auto" />
-      <SearchBar />
-      <UserCard />
+      <SearchBar
+        value={searchQuery}
+        onChangeText={setSearchQuery}
+        onSearch={handleSearch}
+      />
+      <UserCard
+        userData={userData}
+        loading={loading}
+      />
     </ScrollView>
   );
 }

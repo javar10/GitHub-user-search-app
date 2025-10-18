@@ -8,7 +8,7 @@ import WebsiteIcon from '../assets/icons/url.png'
 import TwitterIcon from '../assets/icons/twitter.png'
 import CompanyIcon from '../assets/icons/office-building.png'
 
-const UserCard = () => {
+const UserCard = ({userData, loading}) => {
     return (
         <View style={styles.container}>
             <View style={styles.userCardHeader} >

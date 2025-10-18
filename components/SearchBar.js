@@ -3,22 +3,21 @@ import React from 'react'
 import { colors, fonts } from '../styles/theme'
 import SearchIcon from '../assets/icons/search-icon.png'
 
-const SearchBar = () => {
+const SearchBar = ({value, onChangeText, onSearch}) => {
     return (
         <View style={styles.container}>
             <View style={styles.textInputView} >
                 <Image source={SearchIcon} style={styles.searchIcon} />
                 <TextInput
-                    style={styles.searchText}
+                    style={styles.searchInput}
                     placeholder='Search GitHub username...'
                     placeholderTextColor={colors.neutral500}
                     underlineColorAndroid="transparent"
-                    
-                    // value={text}
-                    // onChangeText={setText}
+                    value={value}
+                    onChangeText={onChangeText}
                 />
             </View>
-            <TouchableOpacity style={styles.searchButton}>
+            <TouchableOpacity onPress={onSearch} style={styles.searchButton}>
                 <Text style={styles.searchButtonText}>Search</Text>
             </TouchableOpacity>
         </View>
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
         gap: 8,
         flex: 1,
     },
-    searchText: {
+    searchInput: {
         color: colors.neutral700,
         fontSize: fonts.size.xxs,
         fontFamily: fonts.regular,
