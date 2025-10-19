@@ -38,7 +38,7 @@ const UserCard = ({ user, loading, error }) => {
                         <Image source={{ uri: user.avatar_url }} style={styles.userAvatar} />
                         <View style={styles.userInfo} >
                             <Text style={styles.userName} >{user.name || user.login}</Text>
-                            <Text style={styles.userHandle} >@{user.login}</Text>
+                            <Text style={styles.userHandle} onPress={() => Linking.openURL(`https://github.com/${user.login}`)}>@{user.login}</Text>
                             <Text style={styles.userJoinDate} >Joined {formatDate(user.created_at)}</Text>
                         </View>
                     </View>
