@@ -7,9 +7,7 @@ import Moon from '../assets/icons/moon.png';
 const Header = () => {
     return (
         <View style={styles.container}>
-            {/* <View style={styles.logoContainer}> */}
             <Image source={Logo} style={styles.logo} />
-            {/* </View> */}
             <TouchableOpacity style={styles.modeToggle}>
                 <Text style={styles.headerText}>DARK</Text>
                 <Image source={Moon} style={styles.headerIcon} />
@@ -30,14 +28,13 @@ const styles = StyleSheet.create({
         marginTop: 32,
         padding: 0,
     },
-    // logoContainer: {
-    //     justifyContent: 'flex-start',
-    // },
     logo: {
         width: 128,
+        height: 26,
         resizeMode: 'contain',
         tintColor: colors.neutral900,
         alignSelf: 'flex-start',
+        padding: 0,
     },
     modeToggle: {
         flexDirection: 'row',
