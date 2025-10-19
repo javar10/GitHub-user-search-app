@@ -8,10 +8,27 @@ import SearchBar from './components/SearchBar';
 import UserCard from './components/UserCard';
 
 export default function App() {
+    const defaultUser = {
+    "login": "octocat",
+    "name": "The Octocat",
+    "id": 1,
+    "avatar_url": "https://avatars.githubusercontent.com/u/583231?v=4",
+    "created_at": "2011-01-25T08:33:35Z",
+    "bio": "",
+    "public_repos": 8,
+    "followers": 3938,
+    "following": 9,
+    "location": "San Francisco",
+    "twitter_username": "",
+    "blog": "https://github.blog",
+    "company": "@github",
+  }
+
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(defaultUser);
   const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
     async function loadFonts() {
@@ -39,7 +56,7 @@ export default function App() {
       console.log(data)
     } catch (error) {
       console.error('Error fetching user:', error);
-      setUserData(null);
+      setUserData(defaultUser);
     } finally {
       setLoading(false);
     }
@@ -58,7 +75,7 @@ export default function App() {
         onSearch={handleSearch}
       />
       <UserCard
-        userData={userData}
+        user={userData}
         loading={loading}
       />
     </ScrollView>

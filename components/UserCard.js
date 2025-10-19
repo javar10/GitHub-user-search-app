@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, ActivityIndicator, Linking } from 'react-native'
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { colors, fonts } from '../styles/theme'
@@ -8,50 +8,77 @@ import WebsiteIcon from '../assets/icons/url.png'
 import TwitterIcon from '../assets/icons/twitter.png'
 import CompanyIcon from '../assets/icons/office-building.png'
 
-const UserCard = ({userData, loading}) => {
+const UserCard = ({ user, loading }) => {
+    const formatDate = (isoString) => {
+        const date = new Date(isoString);
+        return date.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+        });
+    };
+
+    if (loading) return <ActivityIndicator size="large" />;
+    if (!user) return null;
+
     return (
         <View style={styles.container}>
             <View style={styles.userCardHeader} >
-                <Image source={Avatar} style={styles.userAvatar} />
+                <Image source={{ uri: user.avatar_url }} style={styles.userAvatar} />
                 <View style={styles.userInfo} >
-                    <Text style={styles.userName} >The Octocat</Text>
-                    <Text style={styles.userHandle} >@octocat</Text>
-                    <Text style={styles.userJoinDate} >Joined 25 Jan 2011</Text>
+                    <Text style={styles.userName} >{user.name || user.login}</Text>
+                    <Text style={styles.userHandle} >@{user.login}</Text>
+                    <Text style={styles.userJoinDate} >Joined {formatDate(user.created_at)}</Text>
                 </View>
             </View>
             <View style={styles.userCardBody} >
-                <Text style={styles.userBio} >This profile has no bio</Text>
+                <Text style={styles.userBio} >{user.bio || 'This profile has no bio'} </Text>
                 <View style={styles.userStatsContainer} >
                     <View style={styles.userStat} >
                         <Text style={styles.userStatLabel} >Repos</Text>
-                        <Text style={styles.userStatValue} >8</Text>
+                        <Text style={styles.userStatValue} >{user.public_repos}</Text>
                     </View>
                     <View style={styles.userStat} >
                         <Text style={styles.userStatLabel} >Followers</Text>
-                        <Text style={styles.userStatValue} >3938</Text>
+                        <Text style={styles.userStatValue} >{user.followers}</Text>
                     </View>
                     <View style={styles.userStat} >
                         <Text style={styles.userStatLabel} >Following</Text>
-                        <Text style={styles.userStatValue} >9</Text>
+                        <Text style={styles.userStatValue} >{user.following}</Text>
                     </View>
                 </View>
             </View>
             <View style={styles.userCardFooter} >
-                <View style={styles.userContactInfo} >
+                <View style={[styles.userContactInfo, !user.location && styles.notAvailable]} >
                     <Image source={LocationIcon} style={styles.userContactIcon} />
-                    <Text style={styles.userContactText} >San Francisco</Text>
+                    <Text style={styles.userContactText} >{user.location || 'Not Available'}</Text>
                 </View>
-                <View style={styles.userContactInfo} >
+                <View style={[styles.userContactInfo, !user.twitter_username && styles.notAvailable]} >
                     <Image source={TwitterIcon} style={styles.userContactIcon} />
-                    <Text style={styles.userContactText} >Not Available</Text>
+                    <Text
+                        style={styles.userContactText}
+                        onPress={user.twitter_username ? () => Linking.openURL(`https://x.com/${user.twitter_username}`) : undefined}
+                    >
+                        {user.twitter_username || 'Not Available'}
+                    </Text>
                 </View>
-                <View style={styles.userContactInfo} >
+                <View style={[styles.userContactInfo, !user.blog && styles.notAvailable]} >
                     <Image source={WebsiteIcon} style={styles.userContactIcon} />
-                    <Text style={styles.userContactText} >https://github.blog</Text>
+                    <Text
+                        style={styles.userContactText}
+                        onPress={user.blog ? () => Linking.openURL(user.blog) : undefined}
+                    >
+                        {user.blog || 'Not Available'}
+                    </Text>
                 </View>
-                <View style={styles.userContactInfo} >
+                <View style={[styles.userContactInfo, !user.company && styles.notAvailable]} >
                     <Image source={CompanyIcon} style={styles.userContactIcon} />
-                    <Text style={styles.userContactText} >@github</Text>
+                    <Text
+                        style={styles.userContactText}
+                        onPress={user.company ? () => Linking.openURL(`https://github.com/${user.company.replace('@', '')}`) : undefined}
+                    >
+                        {user.company || 'Not Available'}
+                    </Text>
                 </View>
             </View>
         </View>
@@ -86,6 +113,7 @@ const styles = StyleSheet.create({
     userAvatar: {
         width: 70,
         height: 70,
+        borderRadius: 35,
     },
     userInfo: {
         flexDirection: 'column',
@@ -192,5 +220,8 @@ const styles = StyleSheet.create({
         letterSpacing: 0,
         marginBottom: 1,
         color: colors.neutral500,
+    },
+    notAvailable: {
+        opacity: 0.7,
     },
 });
