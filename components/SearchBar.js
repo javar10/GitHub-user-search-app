@@ -3,7 +3,7 @@ import React from 'react'
 import { colors, fonts } from '../styles/theme'
 import SearchIcon from '../assets/icons/search-icon.png'
 
-const SearchBar = ({value, onChangeText, onSearch}) => {
+const SearchBar = ({ value, onChangeText, onSearch, error }) => {
     return (
         <View style={styles.container}>
             <View style={styles.textInputView} >
@@ -17,6 +17,11 @@ const SearchBar = ({value, onChangeText, onSearch}) => {
                     onChangeText={onChangeText}
                 />
             </View>
+            {error && (
+                <Text style={styles.errorText}>
+                    No results
+                </Text>
+            )}
             <TouchableOpacity onPress={onSearch} style={styles.searchButton}>
                 <Text style={styles.searchButtonText}>Search</Text>
             </TouchableOpacity>
@@ -42,6 +47,7 @@ const styles = StyleSheet.create({
         elevation: 16,
         paddingVertical: 8,
         paddingHorizontal: 12,
+        gap: 12,
     },
     textInputView: {
         flexDirection: 'row',
@@ -65,6 +71,15 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         tintColor: colors.blue500,
+    },
+    errorText: {
+        fontFamily: fonts.bold,
+        fontWeight: '700',
+        fontSize: fonts.size.xxs,
+        lineHeight: 13 * 1.5,
+        letterSpacing: 0,
+        marginBottom: 1,
+        color: colors.red500,
     },
     searchButton: {
         backgroundColor: colors.blue500,

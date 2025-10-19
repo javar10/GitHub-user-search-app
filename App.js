@@ -51,7 +51,7 @@ export default function App() {
     if (!searchQuery) return;
     setLoading(true);
     setError(null);
-    
+
     try {
       const response = await fetch(`https://api.github.com/users/${searchQuery}`);
 
@@ -87,6 +87,7 @@ export default function App() {
         value={searchQuery}
         onChangeText={setSearchQuery}
         onSearch={handleSearch}
+        error={error}
       />
       <UserCard
         user={userData}
