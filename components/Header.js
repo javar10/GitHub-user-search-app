@@ -12,7 +12,6 @@ const Header = () => {
                 <Text style={styles.headerText}>DARK</Text>
                 <Image source={Moon} style={styles.headerIcon} />
             </TouchableOpacity>
-
         </View>
     );
 };
