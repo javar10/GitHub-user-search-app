@@ -6,6 +6,7 @@ import { colors, fonts } from './styles/theme';
 import Header from './components/Header';
 import SearchBar from './components/SearchBar';
 import UserCard from './components/UserCard';
+import Attribution from './components/Attribution';
 
 export default function App() {
   const defaultUser = {
@@ -94,6 +95,7 @@ export default function App() {
         loading={loading}
         error={error}
       />
+      <Attribution />
     </ScrollView>
   );
 }
