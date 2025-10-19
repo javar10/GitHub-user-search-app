@@ -8,7 +8,7 @@ import WebsiteIcon from '../assets/icons/url.png'
 import TwitterIcon from '../assets/icons/twitter.png'
 import CompanyIcon from '../assets/icons/office-building.png'
 
-const UserCard = ({ user, loading }) => {
+const UserCard = ({ user, loading, error }) => {
     const formatDate = (isoString) => {
         const date = new Date(isoString);
         return date.toLocaleDateString("en-GB", {
@@ -19,68 +19,81 @@ const UserCard = ({ user, loading }) => {
     };
 
     if (loading) return <ActivityIndicator size="large" />;
-    if (!user) return null;
+    // if (!user) return null;
 
     return (
         <View style={styles.container}>
-            <View style={styles.userCardHeader} >
-                <Image source={{ uri: user.avatar_url }} style={styles.userAvatar} />
-                <View style={styles.userInfo} >
-                    <Text style={styles.userName} >{user.name || user.login}</Text>
-                    <Text style={styles.userHandle} >@{user.login}</Text>
-                    <Text style={styles.userJoinDate} >Joined {formatDate(user.created_at)}</Text>
-                </View>
-            </View>
-            <View style={styles.userCardBody} >
-                <Text style={styles.userBio} >{user.bio || 'This profile has no bio'} </Text>
-                <View style={styles.userStatsContainer} >
-                    <View style={styles.userStat} >
-                        <Text style={styles.userStatLabel} >Repos</Text>
-                        <Text style={styles.userStatValue} >{user.public_repos}</Text>
-                    </View>
-                    <View style={styles.userStat} >
-                        <Text style={styles.userStatLabel} >Followers</Text>
-                        <Text style={styles.userStatValue} >{user.followers}</Text>
-                    </View>
-                    <View style={styles.userStat} >
-                        <Text style={styles.userStatLabel} >Following</Text>
-                        <Text style={styles.userStatValue} >{user.following}</Text>
-                    </View>
-                </View>
-            </View>
-            <View style={styles.userCardFooter} >
-                <View style={[styles.userContactInfo, !user.location && styles.notAvailable]} >
-                    <Image source={LocationIcon} style={styles.userContactIcon} />
-                    <Text style={styles.userContactText} >{user.location || 'Not Available'}</Text>
-                </View>
-                <View style={[styles.userContactInfo, !user.twitter_username && styles.notAvailable]} >
-                    <Image source={TwitterIcon} style={styles.userContactIcon} />
-                    <Text
-                        style={styles.userContactText}
-                        onPress={user.twitter_username ? () => Linking.openURL(`https://x.com/${user.twitter_username}`) : undefined}
-                    >
-                        {user.twitter_username || 'Not Available'}
+            {error ? (
+                <View style={styles.noResultsContainer} >
+                    <Text style={styles.noResultsHeader}>
+                        No results found!
+                    </Text>
+                    <Text style={styles.noResultsText}>
+                        We couldn't find any GitHub users matching your search. Please double-check the username and try again.
                     </Text>
                 </View>
-                <View style={[styles.userContactInfo, !user.blog && styles.notAvailable]} >
-                    <Image source={WebsiteIcon} style={styles.userContactIcon} />
-                    <Text
-                        style={styles.userContactText}
-                        onPress={user.blog ? () => Linking.openURL(user.blog) : undefined}
-                    >
-                        {user.blog || 'Not Available'}
-                    </Text>
-                </View>
-                <View style={[styles.userContactInfo, !user.company && styles.notAvailable]} >
-                    <Image source={CompanyIcon} style={styles.userContactIcon} />
-                    <Text
-                        style={styles.userContactText}
-                        onPress={user.company ? () => Linking.openURL(`https://github.com/${user.company.replace('@', '')}`) : undefined}
-                    >
-                        {user.company || 'Not Available'}
-                    </Text>
-                </View>
-            </View>
+            ) : (
+                <>
+                    <View style={styles.userCardHeader} >
+                        <Image source={{ uri: user.avatar_url }} style={styles.userAvatar} />
+                        <View style={styles.userInfo} >
+                            <Text style={styles.userName} >{user.name || user.login}</Text>
+                            <Text style={styles.userHandle} >@{user.login}</Text>
+                            <Text style={styles.userJoinDate} >Joined {formatDate(user.created_at)}</Text>
+                        </View>
+                    </View>
+                    <View style={styles.userCardBody} >
+                        <Text style={styles.userBio} >{user.bio || 'This profile has no bio'} </Text>
+                        <View style={styles.userStatsContainer} >
+                            <View style={styles.userStat} >
+                                <Text style={styles.userStatLabel} >Repos</Text>
+                                <Text style={styles.userStatValue} >{user.public_repos}</Text>
+                            </View>
+                            <View style={styles.userStat} >
+                                <Text style={styles.userStatLabel} >Followers</Text>
+                                <Text style={styles.userStatValue} >{user.followers}</Text>
+                            </View>
+                            <View style={styles.userStat} >
+                                <Text style={styles.userStatLabel} >Following</Text>
+                                <Text style={styles.userStatValue} >{user.following}</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.userCardFooter} >
+                        <View style={[styles.userContactInfo, !user.location && styles.notAvailable]} >
+                            <Image source={LocationIcon} style={styles.userContactIcon} />
+                            <Text style={styles.userContactText} >{user.location || 'Not Available'}</Text>
+                        </View>
+                        <View style={[styles.userContactInfo, !user.twitter_username && styles.notAvailable]} >
+                            <Image source={TwitterIcon} style={styles.userContactIcon} />
+                            <Text
+                                style={styles.userContactText}
+                                onPress={user.twitter_username ? () => Linking.openURL(`https://x.com/${user.twitter_username}`) : undefined}
+                            >
+                                {user.twitter_username || 'Not Available'}
+                            </Text>
+                        </View>
+                        <View style={[styles.userContactInfo, !user.blog && styles.notAvailable]} >
+                            <Image source={WebsiteIcon} style={styles.userContactIcon} />
+                            <Text
+                                style={styles.userContactText}
+                                onPress={user.blog ? () => Linking.openURL(user.blog) : undefined}
+                            >
+                                {user.blog || 'Not Available'}
+                            </Text>
+                        </View>
+                        <View style={[styles.userContactInfo, !user.company && styles.notAvailable]} >
+                            <Image source={CompanyIcon} style={styles.userContactIcon} />
+                            <Text
+                                style={styles.userContactText}
+                                onPress={user.company ? () => Linking.openURL(`https://github.com/${user.company.replace('@', '')}`) : undefined}
+                            >
+                                {user.company || 'Not Available'}
+                            </Text>
+                        </View>
+                    </View>
+                </>
+            )}
         </View>
     )
 }
@@ -103,6 +116,35 @@ const styles = StyleSheet.create({
         paddingVertical: 32,
         paddingHorizontal: 24,
         gap: 24,
+    },
+    noResultsContainer: {
+        width: '100%',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 32,
+        paddingHorizontal: 24,
+        gap: 12,
+    },
+    noResultsHeader: {
+        fontFamily: fonts.bold,
+        fontWeight: '700',
+        fontSize: fonts.size.lg,
+        lineHeight: 22 * 1.4,
+        letterSpacing: 0,
+        color: colors.neutral700,
+        marginBottom: 1,
+        textAlign: 'center',
+    },
+    noResultsText: {
+        fontFamily: fonts.regular,
+        fontWeight: '400',
+        fontSize: fonts.size.xs,
+        lineHeight: 15 * 1.5,
+        letterSpacing: 0,
+        marginBottom: 1,
+        color: colors.neutral300,
+        textAlign: 'center',
     },
     userCardHeader: {
         width: '100%',
