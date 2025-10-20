@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Dimensions, useWindowDimensions } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import * as Font from 'expo-font';
 import { colors } from './styles/theme';
@@ -10,6 +10,23 @@ import UserCard from './components/UserCard';
 import Attribution from './components/Attribution';
 
 export default function App() {
+  // const [orientation, setOrientation] = useState<'portrait' | 'landscape'>(
+  //   Dimensions.get('window').width > Dimensions.get('window').height
+  //     ? 'landscape'
+  //     : 'portrait'
+  // );
+
+  // useEffect(() => {
+  //   const subscription = Dimensions.addEventListener('change', ({ window }) => {
+  //     setOrientation(window.width > window.height ? 'landscape' : 'portrait');
+  //   });
+
+  //   return () => subscription?.remove(); 
+  // }, []);
+
+  const { width, height } = useWindowDimensions();
+  const isLandscape = width > height;
+
   const defaultUser = {
     "login": "octocat",
     "name": "The Octocat",
@@ -88,7 +105,10 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <SafeAreaView
-        style={{ flex: 1, backgroundColor: isDark ? colors.neutral900 : colors.neutral100 }}
+        style={{
+          flex: 1,
+          backgroundColor: isDark ? colors.neutral900 : colors.neutral100,
+        }}
       >
         <StatusBar
           style={isDark ? 'light' : 'dark'}
@@ -98,12 +118,18 @@ export default function App() {
         />
 
         <ScrollView
-          style={{ flex: 1, backgroundColor: isDark ? colors.neutral900 : colors.neutral100 }}
-          contentContainerStyle={{ alignItems: 'center', gap: 32 }}
+          style={{
+            flex: 1,
+            backgroundColor: isDark ? colors.neutral900 : colors.neutral100,
+            alignSelf: width > 798 ? 'center' : 'auto',
+          }}
+          contentContainerStyle={{ alignItems: 'center', gap: width > 740 ? 40 : 32 }}
+
         >
           <Header
             isDark={isDark}
             setIsDark={setIsDark}
+            width={width}
           />
           <SearchBar
             value={searchQuery}
@@ -111,6 +137,7 @@ export default function App() {
             onSearch={handleSearch}
             error={error}
             isDark={isDark}
+            width={width}
           />
           <UserCard
             user={userData}

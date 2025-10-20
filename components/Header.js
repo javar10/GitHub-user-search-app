@@ -5,8 +5,8 @@ import Logo from '../assets/logos/devfinder.png';
 import Moon from '../assets/icons/moon.png';
 import Sun from '../assets/icons/sun.png';
 
-const Header = ({ isDark, setIsDark }) => {
-    const s = styles(isDark);
+const Header = ({ isDark, setIsDark, width}) => {
+    const s = styles(isDark, width);
 
     const toggleMode = () => {
         setIsDark(prev => !prev);
@@ -32,16 +32,15 @@ const Header = ({ isDark, setIsDark }) => {
 
 export default Header;
 
-const styles = (isDark) => StyleSheet.create({
+const styles = (isDark, w) => StyleSheet.create({
     container: {
-        width: '91.5%',
+        width: w > 798 ? 730 : '91.5%',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         marginTop: 42,
         padding: 0,
     },
-
     logo: {
         width: 128,
         height: 26,
@@ -52,7 +51,7 @@ const styles = (isDark) => StyleSheet.create({
     modeToggle: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 12,
+        gap: w > 740 ? 16 : 12,
     },
     headerText: {
         color: isDark ? colors.neutral200 : colors.neutral500,

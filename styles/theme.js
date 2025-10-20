@@ -24,3 +24,8 @@ export const fonts = {
         xxs: 13,
     },
 };
+
+// breakpoints for responsive design
+// mobile width 0-739
+// tablet width 740-1040
+// desktop width 1040+

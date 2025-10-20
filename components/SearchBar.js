@@ -3,8 +3,8 @@ import React from 'react'
 import { colors, fonts } from '../styles/theme'
 import SearchIcon from '../assets/icons/search-icon.png'
 
-const SearchBar = ({ value, onChangeText, onSearch, error, isDark }) => {
-    const s = styles(isDark);
+const SearchBar = ({ value, onChangeText, onSearch, error, isDark, width }) => {
+    const s = styles(isDark, width);
 
     return (
         <View style={s.container}>
@@ -37,9 +37,9 @@ const SearchBar = ({ value, onChangeText, onSearch, error, isDark }) => {
 
 export default SearchBar
 
-const styles = (isDark) => StyleSheet.create({
+const styles = (isDark, w) => StyleSheet.create({
     container: {
-        width: '91.5%',
+        width: w > 798 ? 730 : '91.5%',
         height: 69,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -54,21 +54,22 @@ const styles = (isDark) => StyleSheet.create({
             elevation: 16,
         }),
         paddingVertical: 8,
-        paddingHorizontal: 12,
+        paddingRight: 12,
+        paddingLeft: w > 740 ? 24 : 12,
         gap: 12,
     },
     textInputView: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 8,
+        gap: w > 740 ? 20 : 8,
         flex: 1,
     },
     searchInput: {
         color: isDark ? colors.neutral0 : colors.neutral700,
-        fontSize: fonts.size.xxs,
+        fontSize: w > 740 ? fonts.size.md : fonts.size.xxs,
         fontFamily: fonts.regular,
         fontWeight: '400',
-        lineHeight: 13 * 1.4,
+        lineHeight: w > 740 ? 18 * 1.4 : 13 * 1.4,
         letterSpacing: 0,
         flex: 1,
         width: '100%',
@@ -76,8 +77,8 @@ const styles = (isDark) => StyleSheet.create({
         outlineStyle: 'none',
     },
     searchIcon: {
-        width: 20,
-        height: 20,
+        width: w > 740 ? 24 : 20,
+        height: w > 740 ? 24 : 20,
     },
     errorText: {
         fontFamily: fonts.bold,
