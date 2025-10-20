@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import * as Font from 'expo-font';
 import { colors } from './styles/theme';
 import Header from './components/Header';
@@ -74,7 +75,6 @@ export default function App() {
 
       const data = await response.json();
       setUserData(data);
-      console.log(data)
     } catch (err) {
       // console.error('Error fetching user:', err);
       setUserData(defaultUser);
@@ -86,32 +86,44 @@ export default function App() {
   };
 
   return (
-    <ScrollView
-      style={{ flex: 1, backgroundColor: isDark ? colors.neutral900 : colors.neutral100 }}
-      contentContainerStyle={{ alignItems: 'center', gap: 32 }}
-    >
-      <Header
-        isDark={isDark}
-        setIsDark={setIsDark}
-      />
-      <StatusBar style="auto" />
-      <SearchBar
-        value={searchQuery}
-        onChangeText={handleChangeText}
-        onSearch={handleSearch}
-        error={error}
-        isDark={isDark}
-      />
-      <UserCard
-        user={userData}
-        loading={loading}
-        error={error}
-        isDark={isDark}
-      />
-      <Attribution
-        isDark={isDark}
-      />
-    </ScrollView>
+    <SafeAreaProvider>
+      <SafeAreaView
+        style={{ flex: 1, backgroundColor: isDark ? colors.neutral900 : colors.neutral100 }}
+      >
+        <StatusBar
+          style={isDark ? 'light' : 'dark'}
+          backgroundColor={isDark ? colors.neutral900 : colors.neutral100}
+          translucent={false}
+          animated
+        />
+
+        <ScrollView
+          style={{ flex: 1, backgroundColor: isDark ? colors.neutral900 : colors.neutral100 }}
+          contentContainerStyle={{ alignItems: 'center', gap: 32 }}
+        >
+          <Header
+            isDark={isDark}
+            setIsDark={setIsDark}
+          />
+          <SearchBar
+            value={searchQuery}
+            onChangeText={handleChangeText}
+            onSearch={handleSearch}
+            error={error}
+            isDark={isDark}
+          />
+          <UserCard
+            user={userData}
+            loading={loading}
+            error={error}
+            isDark={isDark}
+          />
+          <Attribution
+            isDark={isDark}
+          />
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 

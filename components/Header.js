@@ -10,7 +10,6 @@ const Header = ({ isDark, setIsDark }) => {
 
     const toggleMode = () => {
         setIsDark(prev => !prev);
-        console.log('Toggled mode:', !isDark);
     }
 
     return (
@@ -24,7 +23,7 @@ const Header = ({ isDark, setIsDark }) => {
                 <Text style={s.headerText}>{isDark ? 'LIGHT' : 'DARK'}</Text>
                 <Image
                     source={isDark ? Sun : Moon}
-                    style={[s.headerIcon, {tintColor: isDark ? colors.neutral200 : colors.neutral500}]}
+                    style={[s.headerIcon, { tintColor: isDark ? colors.neutral200 : colors.neutral500 }]}
                 />
             </TouchableOpacity>
         </View>
@@ -39,7 +38,7 @@ const styles = (isDark) => StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: 64,
+        marginTop: 42,
         padding: 0,
     },
 
