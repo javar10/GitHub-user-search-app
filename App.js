@@ -48,6 +48,14 @@ export default function App() {
     return null;
   }
 
+  const handleChangeText = (text) => {
+    setSearchQuery(text);
+    if (text === '') {
+      setError(null);
+      setUserData(defaultUser);
+    }
+  }
+
   const handleSearch = async () => {
     if (!searchQuery) return;
     setLoading(true);
@@ -68,7 +76,7 @@ export default function App() {
       setUserData(data);
       console.log(data)
     } catch (err) {
-      console.error('Error fetching user:', err);
+      // console.error('Error fetching user:', err);
       setUserData(defaultUser);
       setError(err.message);
       console.log('Error message set:', err.message);
@@ -89,7 +97,7 @@ export default function App() {
       <StatusBar style="auto" />
       <SearchBar
         value={searchQuery}
-        onChangeText={setSearchQuery}
+        onChangeText={handleChangeText}
         onSearch={handleSearch}
         error={error}
         isDark={isDark}

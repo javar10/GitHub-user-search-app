@@ -23,7 +23,7 @@ const SearchBar = ({ value, onChangeText, onSearch, error, isDark }) => {
                     onChangeText={onChangeText}
                 />
             </View>
-            {error && (
+            {error && value !== '' && (
                 <Text style={s.errorText}>
                     No results
                 </Text>
