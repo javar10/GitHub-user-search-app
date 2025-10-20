@@ -147,6 +147,7 @@ export default function App() {
           />
           <Attribution
             isDark={isDark}
+            width={width}
           />
         </ScrollView>
       </SafeAreaView>

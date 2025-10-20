@@ -2,8 +2,8 @@ import { View, Text, Linking, StyleSheet } from 'react-native'
 import React from 'react'
 import { colors, fonts } from '../styles/theme'
 
-const Attribution = ({ isDark }) => {
-    const s = styles(isDark);
+const Attribution = ({ isDark, width }) => {
+    const s = styles(isDark, width);
 
     return (
         <View style={s.container}>
@@ -16,6 +16,7 @@ const Attribution = ({ isDark }) => {
                     Frontend Mentor
                 </Text>.
             </Text>
+            {width > 740 && <Text style={s.attText}>{' '}</Text>}
             <Text style={s.attText}>
                 Coded by {''}
                 <Text
@@ -31,10 +32,10 @@ const Attribution = ({ isDark }) => {
 
 export default Attribution
 
-const styles = (isDark) => StyleSheet.create({
+const styles = (isDark, w) => StyleSheet.create({
     container: {
-        width: '91.5%',
-        flexDirection: 'column',
+        width: w > 798 ? 730 : '91.5%',
+        flexDirection: w > 740 ? 'row' : 'column',
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 16,
