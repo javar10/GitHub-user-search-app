@@ -2,22 +2,24 @@ import { View, Text, Linking, StyleSheet } from 'react-native'
 import React from 'react'
 import { colors, fonts } from '../styles/theme'
 
-const Attribution = () => {
+const Attribution = ({ isDark }) => {
+    const s = styles(isDark);
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.attText}>
+        <View style={s.container}>
+            <Text style={s.attText}>
                 Challenge by {''}
                 <Text
-                    style={[styles.attText, styles.attLink]}
+                    style={[s.attText, s.attLink]}
                     onPress={() => Linking.openURL('https://www.frontendmentor.io/challenges/github-user-search-app-Q09YOgaH6')}
                 >
                     Frontend Mentor
                 </Text>.
             </Text>
-            <Text style={styles.attText}>
+            <Text style={s.attText}>
                 Coded by {''}
                 <Text
-                    style={[styles.attText, styles.attLink]}
+                    style={[s.attText, s.attLink]}
                     onPress={() => Linking.openURL('https://www.linkedin.com/in/javargas')}
                 >
                     Jessica Vargas
@@ -29,7 +31,7 @@ const Attribution = () => {
 
 export default Attribution
 
-const styles = StyleSheet.create({
+const styles = (isDark) => StyleSheet.create({
     container: {
         width: '91.5%',
         flexDirection: 'column',
@@ -38,7 +40,7 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     attText: {
-        color: colors.neutral700,
+        color: isDark ? colors.neutral300 : colors.neutral700,
         fontSize: fonts.size.xxs,
         fontFamily: fonts.regular,
         fontWeight: '400',

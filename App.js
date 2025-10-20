@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView } from 'react-native';
 import * as Font from 'expo-font';
-import { colors, fonts } from './styles/theme';
+import { colors } from './styles/theme';
 import Header from './components/Header';
 import SearchBar from './components/SearchBar';
 import UserCard from './components/UserCard';
@@ -30,7 +30,7 @@ export default function App() {
   const [userData, setUserData] = useState(defaultUser);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     async function loadFonts() {
@@ -79,32 +79,31 @@ export default function App() {
 
   return (
     <ScrollView
-      style={{ flex: 1, backgroundColor: colors.neutral100 }}
+      style={{ flex: 1, backgroundColor: isDark ? colors.neutral900 : colors.neutral100 }}
       contentContainerStyle={{ alignItems: 'center', gap: 32 }}
     >
-      <Header />
+      <Header
+        isDark={isDark}
+        setIsDark={setIsDark}
+      />
       <StatusBar style="auto" />
       <SearchBar
         value={searchQuery}
         onChangeText={setSearchQuery}
         onSearch={handleSearch}
         error={error}
+        isDark={isDark}
       />
       <UserCard
         user={userData}
         loading={loading}
         error={error}
+        isDark={isDark}
       />
-      <Attribution />
+      <Attribution
+        isDark={isDark}
+      />
     </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.neutral100,
-    alignItems: 'center',
-    gap: 32,
-  },
-});

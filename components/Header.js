@@ -3,14 +3,29 @@ import { colors, fonts } from '../styles/theme';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import Logo from '../assets/logos/devfinder.png';
 import Moon from '../assets/icons/moon.png';
+import Sun from '../assets/icons/sun.png';
 
-const Header = () => {
+const Header = ({ isDark, setIsDark }) => {
+    const s = styles(isDark);
+
+    const toggleMode = () => {
+        setIsDark(prev => !prev);
+        console.log('Toggled mode:', !isDark);
+    }
+
     return (
-        <View style={styles.container}>
-            <Image source={Logo} style={styles.logo} />
-            <TouchableOpacity style={styles.modeToggle}>
-                <Text style={styles.headerText}>DARK</Text>
-                <Image source={Moon} style={styles.headerIcon} />
+        <View style={s.container}>
+            <Image
+                key={isDark ? 'logo-dark' : 'logo-light'}
+                source={Logo}
+                style={[s.logo, { tintColor: isDark ? colors.neutral0 : colors.neutral900 }]}
+            />
+            <TouchableOpacity style={s.modeToggle} onPress={toggleMode}>
+                <Text style={s.headerText}>{isDark ? 'LIGHT' : 'DARK'}</Text>
+                <Image
+                    source={isDark ? Sun : Moon}
+                    style={[s.headerIcon, {tintColor: isDark ? colors.neutral200 : colors.neutral500}]}
+                />
             </TouchableOpacity>
         </View>
     );
@@ -18,20 +33,20 @@ const Header = () => {
 
 export default Header;
 
-const styles = StyleSheet.create({
+const styles = (isDark) => StyleSheet.create({
     container: {
         width: '91.5%',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: 32,
+        marginTop: 64,
         padding: 0,
     },
+
     logo: {
         width: 128,
         height: 26,
         resizeMode: 'contain',
-        tintColor: colors.neutral900,
         alignSelf: 'flex-start',
         padding: 0,
     },
@@ -41,7 +56,7 @@ const styles = StyleSheet.create({
         gap: 12,
     },
     headerText: {
-        color: colors.neutral500,
+        color: isDark ? colors.neutral200 : colors.neutral500,
         fontSize: fonts.size.xxs,
         fontFamily: fonts.bold,
         fontWeight: '700',
@@ -51,6 +66,7 @@ const styles = StyleSheet.create({
     },
     headerIcon: {
         width: 20,
-        tintColor: colors.neutral500,
+        height: 20,
+        resizeMode: 'contain',
     },
 });

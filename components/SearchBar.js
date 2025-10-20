@@ -3,27 +3,33 @@ import React from 'react'
 import { colors, fonts } from '../styles/theme'
 import SearchIcon from '../assets/icons/search-icon.png'
 
-const SearchBar = ({ value, onChangeText, onSearch, error }) => {
+const SearchBar = ({ value, onChangeText, onSearch, error, isDark }) => {
+    const s = styles(isDark);
+
     return (
-        <View style={styles.container}>
-            <View style={styles.textInputView} >
-                <Image source={SearchIcon} style={styles.searchIcon} />
+        <View style={s.container}>
+            <View style={s.textInputView} >
+                <Image
+                    key={isDark ? 'logo-dark' : 'logo-light'}
+                    source={SearchIcon}
+                    style={[s.searchIcon, { tintColor: isDark ? colors.blue300 : colors.blue500 }]}
+                />
                 <TextInput
-                    style={styles.searchInput}
+                    style={s.searchInput}
                     placeholder='Search GitHub username...'
-                    placeholderTextColor={colors.neutral500}
+                    placeholderTextColor={isDark ? '#FFFFFFB2' : colors.neutral500}
                     underlineColorAndroid="transparent"
                     value={value}
                     onChangeText={onChangeText}
                 />
             </View>
             {error && (
-                <Text style={styles.errorText}>
+                <Text style={s.errorText}>
                     No results
                 </Text>
             )}
-            <TouchableOpacity onPress={onSearch} style={styles.searchButton}>
-                <Text style={styles.searchButtonText}>Search</Text>
+            <TouchableOpacity onPress={onSearch} style={s.searchButton}>
+                <Text style={s.searchButtonText}>Search</Text>
             </TouchableOpacity>
         </View>
     )
@@ -31,20 +37,22 @@ const SearchBar = ({ value, onChangeText, onSearch, error }) => {
 
 export default SearchBar
 
-const styles = StyleSheet.create({
+const styles = (isDark) => StyleSheet.create({
     container: {
         width: '91.5%',
         height: 69,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: colors.neutral0,
+        backgroundColor: isDark ? colors.neutral800 : colors.neutral0,
         borderRadius: 16,
-        shadowColor: '#4660BB',
-        shadowOffset: { width: 0, height: 16 },
-        shadowOpacity: 0.2,
-        shadowRadius: 30,
-        elevation: 16,
+        ...(isDark ? {} : {
+            shadowColor: '#4660BB',
+            shadowOffset: { width: 0, height: 16 },
+            shadowOpacity: 0.2,
+            shadowRadius: 30,
+            elevation: 16,
+        }),
         paddingVertical: 8,
         paddingHorizontal: 12,
         gap: 12,
@@ -56,7 +64,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     searchInput: {
-        color: colors.neutral700,
+        color: isDark ? colors.neutral0 : colors.neutral700,
         fontSize: fonts.size.xxs,
         fontFamily: fonts.regular,
         fontWeight: '400',
@@ -70,7 +78,6 @@ const styles = StyleSheet.create({
     searchIcon: {
         width: 20,
         height: 20,
-        tintColor: colors.blue500,
     },
     errorText: {
         fontFamily: fonts.bold,
