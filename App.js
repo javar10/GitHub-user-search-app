@@ -123,8 +123,10 @@ export default function App() {
             backgroundColor: isDark ? colors.neutral900 : colors.neutral100,
             alignSelf: width > 798 ? 'center' : 'auto',
           }}
-          contentContainerStyle={{ alignItems: 'center', gap: width > 740 ? 40 : 32 }}
-
+          contentContainerStyle={{
+            alignItems: 'center',
+            gap: width > 740 ? 40 : 32,
+          }}
         >
           <Header
             isDark={isDark}
@@ -144,6 +146,7 @@ export default function App() {
             loading={loading}
             error={error}
             isDark={isDark}
+            width={width}
           />
           <Attribution
             isDark={isDark}
