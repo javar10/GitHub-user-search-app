@@ -34,6 +34,8 @@ export default Header;
 
 const styles = (isDark, w) => StyleSheet.create({
     container: {
+        // maxWidth: 730,
+        // width: '91.5%',
         width: w > 798 ? 730 : '91.5%',
         flexDirection: 'row',
         justifyContent: 'space-between',

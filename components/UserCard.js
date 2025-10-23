@@ -130,19 +130,16 @@ export default UserCard
 
 const styles = (isDark, w) => StyleSheet.create({
     container: {
+        // maxWidth: 730,
+        // width: '91.5%',
+        // alignSelf: 'center',
         width: w > 798 ? 730 : '91.5%',
         flexDirection: w > 740 ? 'row' : 'column',
         // justifyContent: 'space-between',
         alignItems: 'flex-start',
         backgroundColor: isDark ? colors.neutral800 : colors.neutral0,
         borderRadius: 15,
-        ...(isDark ? {} : {
-            shadowColor: '#4660BB',
-            shadowOffset: { width: 0, height: 16 },
-            shadowOpacity: 0.2,
-            shadowRadius: 30,
-            elevation: 20,
-        }),
+        boxShadow: isDark ? '' : '0px 16px 30px -10px #4660BB33',
         paddingVertical: w > 740 ? 48 : 32,
         paddingHorizontal: w > 798 ? 48 : w > 740 ? 32 : 24,
         gap: w > 740 ? 32 : 24,

@@ -108,51 +108,58 @@ export default function App() {
         style={{
           flex: 1,
           backgroundColor: isDark ? colors.neutral900 : colors.neutral100,
+          overflow: 'visible',
         }}
       >
-        <StatusBar
-          style={isDark ? 'light' : 'dark'}
-          backgroundColor={isDark ? colors.neutral900 : colors.neutral100}
-          translucent={false}
-          animated
-        />
+        
 
-        <ScrollView
-          style={{
-            flex: 1,
-            backgroundColor: isDark ? colors.neutral900 : colors.neutral100,
-            alignSelf: width > 798 ? 'center' : 'auto',
-          }}
-          contentContainerStyle={{
-            alignItems: 'center',
-            gap: width > 740 ? 40 : 32,
-          }}
-        >
-          <Header
-            isDark={isDark}
-            setIsDark={setIsDark}
-            width={width}
+
+          <StatusBar
+            style={isDark ? 'light' : 'dark'}
+            backgroundColor={isDark ? colors.neutral900 : colors.neutral100}
+            translucent={false}
+            animated
           />
-          <SearchBar
-            value={searchQuery}
-            onChangeText={handleChangeText}
-            onSearch={handleSearch}
-            error={error}
-            isDark={isDark}
-            width={width}
-          />
-          <UserCard
-            user={userData}
-            loading={loading}
-            error={error}
-            isDark={isDark}
-            width={width}
-          />
-          <Attribution
-            isDark={isDark}
-            width={width}
-          />
-        </ScrollView>
+
+          <ScrollView
+            style={{
+              flex: 1,
+              backgroundColor: isDark ? colors.neutral900 : colors.neutral100,
+              overflow: 'visible',
+            }}
+            contentContainerStyle={{
+              flexGrow: 1,
+              justifyContent: width > 798 ? 'center' : 'flex-start',
+              alignItems: 'center',
+              gap: width > 740 ? 40 : 32,
+            }}
+          >
+            <Header
+              isDark={isDark}
+              setIsDark={setIsDark}
+              width={width}
+            />
+            <SearchBar
+              value={searchQuery}
+              onChangeText={handleChangeText}
+              onSearch={handleSearch}
+              error={error}
+              isDark={isDark}
+              width={width}
+            />
+            <UserCard
+              user={userData}
+              loading={loading}
+              error={error}
+              isDark={isDark}
+              width={width}
+            />
+            <Attribution
+              isDark={isDark}
+              width={width}
+            />
+          </ScrollView>
+        
       </SafeAreaView>
     </SafeAreaProvider>
   );
