@@ -28,4 +28,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./web-build   # 👈 change to ./web-build if that’s your folder
+          publish_dir: ./dist   # 👈 change to ./web-build if that’s your folder
