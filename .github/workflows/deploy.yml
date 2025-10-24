@@ -3,7 +3,7 @@ name: Deploy Expo Web to GitHub Pages
 on:
   push:
     branches:
-      - main  # or master if that's your default branch
+      - main
 
 jobs:
   build:
@@ -27,5 +27,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist   # 👈 change to ./web-build if that’s your folder
+          personal_token: ${{ secrets.GH_PAT }}   # ✅ Use a personal access token
+          publish_dir: ./web-build                 # ✅ Matches Expo SDK 54 output
+          force_orphan: true                       # ✅ Ensures clean gh-pages branch
