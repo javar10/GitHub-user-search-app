@@ -2,14 +2,14 @@
   "name": "github-user-search-app",
   "version": "1.0.0",
   "main": "index.tsx",
-  "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "predeploy": "npx expo export --platform web --no-source-maps",
-    "deploy": "gh-pages -d dist"
-  },
+"scripts": {
+  "start": "expo start",
+  "android": "expo start --android",
+  "ios": "expo start --ios",
+  "web": "expo start --web",
+  "predeploy": "npx expo export --platform web",
+  "deploy": "gh-pages -d dist"
+},
   "dependencies": {
     "expo": "~54.0.13",
     "expo-status-bar": "~3.0.8",
