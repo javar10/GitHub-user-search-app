@@ -8,6 +8,7 @@
   "ios": "expo start --ios",
   "web": "expo start --web",
   "predeploy": "npx expo export --platform web",
+  "postpredeploy": "node scripts/fix-base.js",
   "deploy": "gh-pages -d dist"
 },
   "dependencies": {
